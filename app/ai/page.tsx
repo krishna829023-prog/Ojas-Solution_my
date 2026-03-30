@@ -61,7 +61,14 @@ export default function AIPage() {
   const chatRef = useRef<ChatSession | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { initChat("AIzaSyAovFOdFQgcYflFcD4fjJL2CzOE2zDVSPA"); }, []);
+  useEffect(() => { 
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    if (!apiKey) {
+      setError("API key not configured. Please set NEXT_PUBLIC_GEMINI_API_KEY in environment variables.");
+      return;
+    }
+    initChat(apiKey); 
+  }, []);
 
   useEffect(() => {
     if (!isInitialState) {
