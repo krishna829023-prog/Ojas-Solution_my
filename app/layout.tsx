@@ -4,10 +4,10 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { UserProvider } from '@/lib/user-context'
 import { Toaster } from '@/components/ui/toaster'
 import { Analytics } from '@vercel/analytics/next'
-import { AppLayout } from '@/components/layout/app-layout'
 import './globals.css'
+import { AppLayout } from '@/components/layout/app-layout'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',

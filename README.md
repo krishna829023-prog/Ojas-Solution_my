@@ -325,5 +325,5 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Built with ❤️ by the Ojas Team**  
+**Built with ❤️ by the Ojas Team**
 **Ready for Production Deployment** ✅
