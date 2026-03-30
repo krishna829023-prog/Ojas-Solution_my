@@ -1,0 +1,315 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Ojas Circle Theme - Light mode base */
+  --background: oklch(0.98 0.005 270);
+  --foreground: oklch(0.15 0.02 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 270);
+  --primary: oklch(0.72 0.18 75); /* Saffron gold */
+  --primary-foreground: oklch(0.15 0.02 270);
+  --secondary: oklch(0.65 0.18 155); /* Healing green */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.95 0.01 270);
+  --muted-foreground: oklch(0.5 0.02 270);
+  --accent: oklch(0.62 0.12 250); /* Calm blue */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0.01 270);
+  --input: oklch(0.95 0.01 270);
+  --ring: oklch(0.72 0.18 75);
+  --chart-1: oklch(0.72 0.18 75);
+  --chart-2: oklch(0.65 0.18 155);
+  --chart-3: oklch(0.62 0.12 250);
+  --chart-4: oklch(0.7 0.15 330);
+  --chart-5: oklch(0.6 0.15 40);
+  --radius: 0.75rem;
+  
+  /* Custom Ojas tokens - New Palette: Midnight & Dawn */
+  --saffron: oklch(0.75 0.14 65); /* Warm Sunrise Peach */
+  --saffron-light: oklch(0.85 0.1 65);
+  --healing-green: oklch(0.75 0.12 165); /* Soft Mint/Teal */
+  --calm-blue: oklch(0.68 0.14 285); /* Soft Lavender */
+  --deep-navy: oklch(0.14 0.02 200); /* Deep Midnight/Ocean */
+  --dark-surface: oklch(0.18 0.02 200);
+  --card-bg: oklch(0.20 0.02 200);
+  --warning-red: oklch(0.6 0.2 25);
+  --critical-red: oklch(0.5 0.25 20);
+  
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.72 0.18 75);
+  --sidebar-primary-foreground: oklch(0.15 0.02 270);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.14 0.02 200); /* Deep Midnight */
+  --foreground: oklch(0.98 0.01 200);
+  --card: oklch(0.18 0.02 200); /* Dark surface */
+  --card-foreground: oklch(0.98 0.01 200);
+  --popover: oklch(0.18 0.02 200);
+  --popover-foreground: oklch(0.98 0.01 200);
+  --primary: oklch(0.75 0.14 65); /* Warm Sunrise Peach */
+  --primary-foreground: oklch(0.14 0.02 200);
+  --secondary: oklch(0.75 0.12 165); /* Soft Mint/Teal */
+  --secondary-foreground: oklch(0.14 0.02 200);
+  --muted: oklch(0.22 0.02 200);
+  --muted-foreground: oklch(0.65 0.02 200);
+  --accent: oklch(0.68 0.14 285);
+  --accent-foreground: oklch(0.98 0.01 200);
+  --destructive: oklch(0.45 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 200);
+  --border: oklch(0.28 0.02 200);
+  --input: oklch(0.22 0.02 200);
+  --ring: oklch(0.75 0.14 65);
+  --chart-1: oklch(0.75 0.14 65);
+  --chart-2: oklch(0.75 0.12 165);
+  --chart-3: oklch(0.68 0.14 285);
+  --chart-4: oklch(0.7 0.15 330);
+  --chart-5: oklch(0.6 0.15 40);
+  
+  --sidebar: oklch(0.18 0.035 270);
+  --sidebar-foreground: oklch(0.98 0.005 270);
+  --sidebar-primary: oklch(0.72 0.18 75);
+  --sidebar-primary-foreground: oklch(0.15 0.02 270);
+  --sidebar-accent: oklch(0.22 0.03 270);
+  --sidebar-accent-foreground: oklch(0.98 0.005 270);
+  --sidebar-border: oklch(0.28 0.025 270);
+  --sidebar-ring: oklch(0.72 0.18 75);
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Custom Ojas color tokens */
+  --color-saffron: var(--saffron);
+  --color-saffron-light: var(--saffron-light);
+  --color-healing-green: var(--healing-green);
+  --color-calm-blue: var(--calm-blue);
+  --color-deep-navy: var(--deep-navy);
+  --color-dark-surface: var(--dark-surface);
+  --color-warning-red: var(--warning-red);
+  --color-critical-red: var(--critical-red);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Glassmorphism utility classes */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 60px rgba(244, 160, 36, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(244, 160, 36, 0.3);
+}
+
+/* Glow effects */
+.glow-saffron {
+  box-shadow: 0 0 30px rgba(244, 160, 36, 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(244, 160, 36, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(244, 160, 36, 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #F4A024 0%, #2ECC71 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Counter animation */
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count {
+  animation: count-up 0.5s ease-out forwards;
+}
+
+/* Orb particles */
+@keyframes orb-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(10px, -20px) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-5px, -40px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-15px, -20px) scale(1.05);
+    opacity: 0.7;
+  }
+}
+
+.animate-orb {
+  animation: orb-float 10s ease-in-out infinite;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 3D perspective for cards */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
