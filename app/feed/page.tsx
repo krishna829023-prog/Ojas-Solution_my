@@ -20,7 +20,7 @@ const mockPosts: Post[] = [
     timeAgo: "2h ago",
     tag: "Addiction",
     upvotes: 42,
-    comments: 11,
+    comments: 14,
     aiSummary: {
       level: "warning",
       insight: "Porn addiction linked to dopamine desensitization → depression is common.",
@@ -43,7 +43,10 @@ const mockPosts: Post[] = [
       { id: "c8", author: "CalmTiger_88", avatar: "🦁", content: "Thanks. I always beat myself up after a relapse which just leads back to the cycle. I'll watch that tonight on my laptop in the living room.", timeAgo: "25m ago" },
       { id: "c9", author: "LotusHealer", avatar: "🪷", content: "Adding to the Ayurvedic AI note: try wiping your face / eyes with cold water whenever an urge hits. Drastically lowers Vata and resets the mind.", timeAgo: "15m ago" },
       { id: "c10", author: "IronWill_7", avatar: "🪨", content: "Bro just remember: Pain of discipline > Pain of regret. Don't give up.", timeAgo: "10m ago" },
-      { id: "c11", author: "Seeker_Om", avatar: "🕉️", content: "We are all in this path together. Re-install Ojas Circle whenever you feel weak, just read our stories.", timeAgo: "2m ago" }
+      { id: "c11", author: "Seeker_Om", avatar: "🕉️", content: "We are all in this path together. Re-install Ojas Circle whenever you feel weak, just read our stories.", timeAgo: "2m ago" },
+      { id: "c12", author: "HealingTree_99", avatar: "🌳", content: "Also avoid heavy foods after sunset. Ayurvedic texts strongly associate heavy digestion with vivid dreams and nocturnal emissions.", timeAgo: "1m ago" },
+      { id: "c13", author: "CalmTiger_88", avatar: "🦁", content: "I didn't even think about the food part. I do binge junk late at night. Need to cut that out tonight.", timeAgo: "Just now" },
+      { id: "c14", author: "SafeSpace_1", avatar: "🤍", content: "One day at a time. The fact that you are here asking for help means you are already healing.", timeAgo: "Just now" }
     ]
   },
   {
@@ -53,7 +56,7 @@ const mockPosts: Post[] = [
     timeAgo: "12h ago",
     tag: "Self-Improvement",
     upvotes: 312,
-    comments: 13,
+    comments: 18,
     replies: [
       { id: "p2_c1", author: "SilentTiger_29", avatar: "🐯", content: "Huge motivation! I relapsed on day 12 but I am starting again today. Need this kind of clarity. Any tips for the week 2 hurdle?", timeAgo: "10h ago" },
       { id: "p2_c2", author: "BraveMonk_41", avatar: "🛡️", content: "Week 2 is when your testosterone spikes, so the urges are purely physical. You have to transmute it. Go to the gym, sprint, exhaust your body.", timeAgo: "9h 30m ago" },
@@ -67,7 +70,12 @@ const mockPosts: Post[] = [
       { id: "p2_c10", author: "BraveMonk_41", avatar: "🛡️", content: "Exactly. Mindfulness creates space between stimulus and response.", timeAgo: "1h 45m ago" },
       { id: "p2_c11", author: "LostBoy_11", avatar: "🌧️", content: "I can't even get past day 3. I feel pathetic reading this.", timeAgo: "1h ago" },
       { id: "p2_c12", author: "WarriorKing", avatar: "👑", content: "Don't say that. Day 3 was an impossible mountain for me two years ago. One day at a time.", timeAgo: "30m ago" },
-      { id: "p2_c13", author: "HealingTree_99", avatar: "🌳", content: "Agreed. Start small. Aim for just today. You've got an entire community behind you.", timeAgo: "10m ago" }
+      { id: "p2_c13", author: "HealingTree_99", avatar: "🌳", content: "Agreed. Start small. Aim for just today. You've got an entire community behind you.", timeAgo: "10m ago" },
+      { id: "p2_c14", author: "PhoenixRising_22", avatar: "🦅", content: "Did anyone notice their confidence skyrocketing during week 4? Like social anxiety just evaporated.", timeAgo: "9m ago" },
+      { id: "p2_c15", author: "BraveMonk_41", avatar: "🛡️", content: "100%. People can feel the change in your aura. In Ayurveda it's called 'Tejas'—the radiant energy from preserved life force.", timeAgo: "8m ago" },
+      { id: "p2_c16", author: "Seeker_77", avatar: "🚶", content: "I'm going to bookmark this thread. I needed to read this. Week 3 flatline is crushing me but I won't give up.", timeAgo: "5m ago" },
+      { id: "p2_c17", author: "WarriorKing", avatar: "👑", content: "Push through Seeker. The flatline is literally your brain begging you for its old toxic dopamine source. Starve it, let it reset.", timeAgo: "2m ago" },
+      { id: "p2_c18", author: "SilentWarrior_9", avatar: "🥷", content: "It's a spiritual war over your own biology. Stay sharp brothers.", timeAgo: "Just now" }
     ]
   },
   {
@@ -77,7 +85,7 @@ const mockPosts: Post[] = [
     timeAgo: "3h ago",
     tag: "Women's Health",
     upvotes: 89,
-    comments: 10,
+    comments: 14,
     aiSummary: {
       level: "info",
       ayurvedic: [
@@ -98,7 +106,11 @@ const mockPosts: Post[] = [
       { id: "p3_c7", author: "CrimsonRose", avatar: "🌹", content: "I shifted entirely to seed cycling (flax/pumpkin first half, sesame/sunflower second half) and my irregular PCOD cycles became exact 28 days.", timeAgo: "45m ago" },
       { id: "p3_c8", author: "DocAnon_33", avatar: "🩺", content: "Seed cycling is highly effective for some because of the natural zinc and lignans. Love seeing holistic approaches here.", timeAgo: "30m ago" },
       { id: "p3_c9", author: "LotusHealer_22", avatar: "🪷", content: "Update us on if the Ajwain tea helped the acute pain! We are here for you.", timeAgo: "15m ago" },
-      { id: "p3_c10", author: "Moonlight_99", avatar: "🌙", content: "It actually soothed the sharp spasms significantly! I also put on some binaural beats and am feeling much calmer. Thank you circle ❤️", timeAgo: "5m ago" }
+      { id: "p3_c10", author: "Moonlight_99", avatar: "🌙", content: "It actually soothed the sharp spasms significantly! I also put on some binaural beats and am feeling much calmer. Thank you circle ❤️", timeAgo: "5m ago" },
+      { id: "p3_c11", author: "DocAnon_33", avatar: "🩺", content: "Glad the Ajwain worked! Make sure to keep your lower back warm tonight. Sometimes cold drafts tense up the pelvic muscles making cramps worse.", timeAgo: "4m ago" },
+      { id: "p3_c12", author: "Moonlight_99", avatar: "🌙", content: "Putting on some fuzzy socks right now. Usually I just suffer through it alone, it feels so nice to have people telling me what to do when I'm in pain.", timeAgo: "3m ago" },
+      { id: "p3_c13", author: "LotusHealer_22", avatar: "🪷", content: "We are your sisters in this! PCOD is a collective struggle. You never have to suffer alone.", timeAgo: "1m ago" },
+      { id: "p3_c14", author: "YogaMind", avatar: "🧘‍♀️", content: "Try resting in child's pose (Balasana) with a pillow under your chest. It takes all the pressure off the uterus.", timeAgo: "Just now" }
     ]
   }
 ];

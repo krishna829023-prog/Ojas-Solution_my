@@ -11,7 +11,7 @@ export default function AboutPage() {
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-aqua/20 rounded-full blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-pure-white/20 rounded-full blur-[120px] animate-float" />
-      
+
       {/* Decorative Dot Matrix layer */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
@@ -27,23 +27,23 @@ export default function AboutPage() {
             <span className="w-2 h-2 rounded-full bg-aqua animate-ping" />
             Made with Purpose
           </div>
-          
+
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter leading-[1.2] md:leading-[1.1] mb-6 pt-4 sm:pt-0 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">
             Designing <br className="hidden md:block" />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-aqua via-aqua-light to-silver italic pr-2">
               Safe Spaces.
             </span>
           </h1>
-          
+
           <p className="text-lg md:text-2xl text-text-secondary max-w-2xl mx-auto font-light leading-relaxed">
-            India's youth faces a silent crisis. We built Ojas Circle to provide complete anonymity, powerful AI guidance, and Ayurvedic wisdom. 
+            India's youth faces a silent crisis. We built Ojas Circle to provide complete anonymity, powerful AI guidance, and Ayurvedic wisdom.
             <strong className="text-white font-medium block mt-2">Zero stigma. Zero data mining.</strong>
           </p>
         </motion.div>
 
         {/* Feature/Mission Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-32">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -86,7 +86,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -115,7 +115,7 @@ export default function AboutPage() {
         </div>
 
         {/* Team Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -130,14 +130,14 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Rudransha Gupta", bio: "\"Built to destigmatize the unsaid.\"" },
-              { name: "Achal Kumar Sharma", bio: "\"Uncovering the crisis via pure data.\"" },
+              { name: "Shreya Sharma", bio: "\"Built to destigmatize the unsaid.\"" },
+              { name: "Achal K. Sharma", bio: "\"Uncovering the crisis via pure data.\"" },
               { name: "Aman Sharma", bio: "\"Designing spaces where youth feel safe.\"" },
               { name: "Nikhil Kumar", bio: "\"Engineering complete conversational privacy.\"" }
             ].map((member, i) => (
-              <motion.div 
+              <motion.div
                 whileHover={{ y: -5 }}
-                key={i} 
+                key={i}
                 className="glass-card p-6 text-center group flex flex-col items-center"
               >
                 <div className="w-20 h-20 bg-obsidian border border-border/50 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:scale-110 group-hover:border-aqua/50 transition-all duration-300">
@@ -153,7 +153,7 @@ export default function AboutPage() {
         </motion.div>
 
         {/* Helplines CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -174,16 +174,16 @@ export default function AboutPage() {
             </a>
           </div>
         </motion.div>
-        
+
         {/* Enter Sanctuary CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           className="w-full text-center pb-32"
         >
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-flex flex-col sm:flex-row items-center justify-center px-8 sm:px-10 py-4 sm:py-5 font-black text-ink-black bg-aqua rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_rgba(244,160,36,0.3)] hover:shadow-[0_0_60px_rgba(244,160,36,0.5)] group text-lg sm:text-xl md:text-2xl uppercase tracking-wider"
           >
             Ready to Heal? Enter Sanctuary <ArrowRight size={28} className="sm:ml-3 group-hover:translate-x-2 transition-transform" />

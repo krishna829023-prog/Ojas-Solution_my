@@ -189,15 +189,6 @@ export default function Home() {
                 playsInline
                 className="w-full h-full object-cover bg-black relative z-10 pt-6 sm:pt-8"
               />
-              
-              {/* Fallback overlay incase video is missing */}
-              <div className="absolute inset-0 top-[24px] sm:top-[32px] flex items-center justify-center bg-gradient-to-br from-obsidian to-background overflow-hidden border-t border-white/5">
-                <span className="relative z-10 text-white/30 text-[10px] sm:text-xs font-medium tracking-widest text-center px-2 leading-relaxed">
-                  <Activity className="w-6 h-6 mx-auto mb-1 opacity-50 text-aqua" />
-                  <br/>DROP <span className="text-white">"preview.mp4"</span> HERE
-                </span>
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
-              </div>
             </motion.div>
 
             {/* Overlapping Tip of the Day Card */}

@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: 'India\'s anonymous platform for sexual wellness, mental health support, and Ayurvedic guidance. 100% anonymous. Zero judgment. Complete healing.',
   keywords: ['mental health', 'anonymous', 'wellness', 'ayurveda', 'support', 'community'],
   authors: [{ name: 'Team Dark Horses' }],
+  icons: {
+    icon: '/lotus.svg?v=3', // Force browser to cache-bust and load the Lotus
+  }
 }
 
 export const viewport: Viewport = {
