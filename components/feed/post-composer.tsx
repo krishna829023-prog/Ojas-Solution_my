@@ -37,16 +37,16 @@ export function PostComposer({ onPost }: { onPost?: (content: string, tag: strin
       transition={{ duration: 0.2 }}
       className={`glass-card p-5 transition-all duration-300 relative overflow-hidden ${
         isFocused 
-          ? 'border-saffron/40 shadow-[0_0_30px_rgba(244,160,36,0.1)] bg-dark-surface/80' 
-          : 'border-border/50 bg-dark-surface/40 hover:bg-dark-surface/60'
+          ? 'border-aqua/40 shadow-[0_0_30px_rgba(244,160,36,0.1)] bg-obsidian/80' 
+          : 'border-border/50 bg-obsidian/40 hover:bg-obsidian/60'
       }`}
     >
       {isFocused && (
-        <div className="absolute top-[-50%] left-[-10%] w-[120%] h-[120%] bg-saffron/5 blur-[80px] pointer-events-none" />
+        <div className="absolute top-[-50%] left-[-10%] w-[120%] h-[120%] bg-aqua/5 blur-[80px] pointer-events-none" />
       )}
 
       <div className="flex gap-4 relative z-10">
-        <div className="hidden sm:flex shrink-0 w-12 h-12 rounded-full bg-saffron/10 border border-saffron/20 items-center justify-center text-saffron">
+        <div className="hidden sm:flex shrink-0 w-12 h-12 rounded-full bg-aqua/10 border border-aqua/20 items-center justify-center text-aqua">
           <UserCircle2 size={24} />
         </div>
         
@@ -68,10 +68,10 @@ export function PostComposer({ onPost }: { onPost?: (content: string, tag: strin
                 exit={{ opacity: 0, height: 0 }}
                 className="flex items-center justify-between mb-4 overflow-hidden"
               >
-                <span className={`text-xs font-medium ${isNearLimit ? 'text-warning-red' : 'text-text-muted'}`}>
+                <span className={`text-xs font-medium ${isNearLimit ? 'text-warning-white' : 'text-text-muted'}`}>
                   {charCount} / {maxChars}
                 </span>
-                <span className="text-xs text-calm-blue flex items-center gap-1 font-medium bg-calm-blue/10 px-2 py-1 rounded-md">
+                <span className="text-xs text-pure-white flex items-center gap-1 font-medium bg-pure-white/10 px-2 py-1 rounded-md">
                   <Sparkles size={12} /> Ojas AI will automatically summarize this
                 </span>
               </motion.div>
@@ -88,7 +88,7 @@ export function PostComposer({ onPost }: { onPost?: (content: string, tag: strin
                     onClick={() => setSelectedTag(tag)}
                     className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
                        selectedTag === tag 
-                        ? 'bg-saffron text-deep-navy shadow-[0_0_10px_rgba(244,160,36,0.3)]' 
+                        ? 'bg-aqua text-ink-black shadow-[0_0_10px_rgba(244,160,36,0.3)]' 
                         : 'bg-white/5 text-text-secondary border border-transparent hover:bg-white/10 hover:text-white'
                     }`}
                   >
@@ -101,7 +101,7 @@ export function PostComposer({ onPost }: { onPost?: (content: string, tag: strin
             <button
               onClick={handlePost}
               disabled={!content.trim()}
-              className="shrink-0 flex items-center justify-center gap-2 px-8 py-2.5 bg-saffron hover:bg-saffron-light text-deep-navy font-black rounded-full transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed uppercase tracking-wider text-sm shadow-[0_4px_14px_0_rgba(244,160,36,0.39)] hover:shadow-[0_6px_20px_rgba(244,160,36,0.23)]"
+              className="shrink-0 flex items-center justify-center gap-2 px-8 py-2.5 bg-aqua hover:bg-aqua-light text-ink-black font-black rounded-full transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed uppercase tracking-wider text-sm shadow-[0_4px_14px_0_rgba(244,160,36,0.39)] hover:shadow-[0_6px_20px_rgba(244,160,36,0.23)]"
             >
               Post <Send size={16} />
             </button>

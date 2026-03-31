@@ -79,12 +79,12 @@ export function Sidebar({ isOpen, setIsOpen, isMobile }: { isOpen: boolean, setI
                   "flex items-center py-3 rounded-xl transition-all relative group",
                   isExpanded ? "gap-4 px-4" : "justify-center px-0",
                   isActive
-                    ? "bg-dark-surface border border-saffron/20 text-saffron shadow-[0_0_15px_rgba(244,160,36,0.1)]"
+                    ? "bg-obsidian border border-aqua/20 text-aqua shadow-[0_0_15px_rgba(244,160,36,0.1)]"
                     : "border border-transparent text-text-secondary hover:text-white hover:bg-white/5"
                 )}
                 title={!isExpanded ? item.name : undefined}
               >
-                <Icon size={22} className={cn("shrink-0", isActive ? "text-saffron" : "")} />
+                <Icon size={22} className={cn("shrink-0", isActive ? "text-aqua" : "")} />
                 <span className={cn(
                   "font-medium whitespace-nowrap transition-all duration-300",
                   !isExpanded && !isMobile ? "opacity-0 w-0 hidden" : "opacity-100"
@@ -94,7 +94,7 @@ export function Sidebar({ isOpen, setIsOpen, isMobile }: { isOpen: boolean, setI
 
                 {/* Tooltip for collapsed mode */}
                 {!isExpanded && !isMobile && (
-                  <div className="absolute left-full ml-2 px-2 py-1 bg-dark-surface border border-border/50 text-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity">
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-obsidian border border-border/50 text-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity">
                     {item.name}
                   </div>
                 )}
@@ -108,7 +108,7 @@ export function Sidebar({ isOpen, setIsOpen, isMobile }: { isOpen: boolean, setI
             href="/help"
             onClick={() => isMobile && setIsOpen(false)}
             className={cn(
-              "flex items-center py-3 rounded-xl transition-colors text-warning-red hover:bg-warning-red/10 group relative",
+              "flex items-center py-3 rounded-xl transition-colors text-warning-white hover:bg-warning-white/10 group relative",
               isExpanded ? "px-4 gap-4" : "justify-center px-0"
             )}
             title={!isExpanded ? "Help" : undefined}
@@ -122,7 +122,7 @@ export function Sidebar({ isOpen, setIsOpen, isMobile }: { isOpen: boolean, setI
             </span>
             
             {!isExpanded && !isMobile && (
-              <div className="absolute left-full ml-2 px-2 py-1 bg-dark-surface border border-warning-red/50 text-warning-red text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity">
+              <div className="absolute left-full ml-2 px-2 py-1 bg-obsidian border border-warning-white/50 text-warning-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity">
                 Help
               </div>
             )}

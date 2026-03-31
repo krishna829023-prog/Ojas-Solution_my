@@ -25,7 +25,7 @@ export function StreakTracker() {
     <div className="glass-card p-6 relative overflow-hidden">
       {/* Background glow based on streak size */}
       <div 
-        className="absolute top-0 right-0 w-64 h-64 bg-saffron/10 rounded-full blur-[80px] pointer-events-none"
+        className="absolute top-0 right-0 w-64 h-64 bg-aqua/10 rounded-full blur-[80px] pointer-events-none"
         style={{ transform: `scale(${1 + streak * 0.01})` }}
       />
 
@@ -39,7 +39,7 @@ export function StreakTracker() {
         
         <div className="flex gap-4">
           <div className="text-center">
-            <div className="text-3xl font-black text-saffron flex items-center gap-1 justify-center">
+            <div className="text-3xl font-black text-aqua flex items-center gap-1 justify-center">
               {streak} <Flame size={24} fill="currentColor" stroke="none" className="animate-pulse" />
             </div>
             <div className="text-xs text-text-muted uppercase font-bold tracking-wider pt-1">Current</div>
@@ -49,7 +49,7 @@ export function StreakTracker() {
           
           <div className="text-center">
             <div className="text-3xl font-black text-white flex items-center gap-1 justify-center">
-              45 <Trophy size={20} className="text-saffron" />
+              45 <Trophy size={20} className="text-aqua" />
             </div>
             <div className="text-xs text-text-muted uppercase font-bold tracking-wider pt-1">Best</div>
           </div>
@@ -69,8 +69,8 @@ export function StreakTracker() {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: i * 0.01 }}
               className={`aspect-square rounded-md flex items-center justify-center text-xs font-bold ${
-                d.status === "clean" ? "bg-healing-green/20 text-healing-green border border-healing-green/30 shadow-[0_0_10px_rgba(46,204,113,0.2)]" :
-                d.status === "reset" ? "bg-critical-red/20 text-critical-red border border-critical-red/30 shadow-[0_0_10px_rgba(255,23,68,0.2)]" :
+                d.status === "clean" ? "bg-silver/20 text-silver border border-silver/30 shadow-[0_0_10px_rgba(46,204,113,0.2)]" :
+                d.status === "reset" ? "bg-alert-white/20 text-alert-white border border-alert-white/30 shadow-[0_0_10px_rgba(255,23,68,0.2)]" :
                 d.status === "pending" ? "bg-white/10 text-white animate-pulse" :
                 "bg-white/5 text-text-muted"
               }`}
@@ -81,8 +81,8 @@ export function StreakTracker() {
         </div>
         
         <div className="flex items-center justify-center gap-6 mt-4 text-xs text-text-secondary">
-          <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-healing-green/50 border border-healing-green"></span> Clean Day</div>
-          <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-critical-red/50 border border-critical-red"></span> Reset</div>
+          <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-silver/50 border border-silver"></span> Clean Day</div>
+          <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-alert-white/50 border border-alert-white"></span> Reset</div>
           <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-white/5"></span> Future</div>
         </div>
       </div>
@@ -92,8 +92,8 @@ export function StreakTracker() {
         disabled={checkedToday}
         className={`relative z-10 w-full py-4 font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
           checkedToday 
-            ? "bg-healing-green/20 text-healing-green border border-healing-green/50 cursor-not-allowed" 
-            : "bg-saffron text-deep-navy hover:bg-saffron-light hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(244,160,36,0.3)] cursor-pointer"
+            ? "bg-silver/20 text-silver border border-silver/50 cursor-not-allowed" 
+            : "bg-aqua text-ink-black hover:bg-aqua-light hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(244,160,36,0.3)] cursor-pointer"
         }`}
       >
         {checkedToday ? (
@@ -111,7 +111,7 @@ export function StreakTracker() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center text-sm text-healing-green mt-4 relative z-10 font-medium"
+          className="text-center text-sm text-silver mt-4 relative z-10 font-medium"
         >
           Community cheers! You're doing great. 💚
         </motion.p>

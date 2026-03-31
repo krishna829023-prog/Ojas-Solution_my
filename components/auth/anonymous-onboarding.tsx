@@ -58,8 +58,8 @@ export function AnonymousOnboarding({ isOpen, onClose }: Props) {
              className="relative w-full max-w-md glass-card p-6 shadow-2xl overflow-hidden z-10"
           >
             {/* subtle portal effect */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-saffron/20 blur-3xl rounded-full" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-healing-green/20 blur-3xl rounded-full" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-aqua/20 blur-3xl rounded-full" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-silver/20 blur-3xl rounded-full" />
             
             <button onClick={onClose} className="absolute right-4 top-4 text-text-muted hover:text-white transition-colors z-20">
               <X size={20} />
@@ -71,12 +71,12 @@ export function AnonymousOnboarding({ isOpen, onClose }: Props) {
               </h2>
             </div>
 
-            <div className="bg-dark-surface border border-border/50 rounded-xl p-4 mb-6 relative z-10">
+            <div className="bg-obsidian border border-border/50 rounded-xl p-4 mb-6 relative z-10">
               <p className="text-sm text-text-secondary mb-2">Your Anonymous Identity:</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">{selectedAvatar}</span>
-                  <span className="text-lg font-bold text-saffron">{username}</span>
+                  <span className="text-lg font-bold text-aqua">{username}</span>
                 </div>
                 <button 
                   onClick={() => setUsername(generateName())}
@@ -104,16 +104,16 @@ export function AnonymousOnboarding({ isOpen, onClose }: Props) {
               </div>
             </div>
 
-            <div className="bg-warning-red/10 border border-warning-red/20 rounded-lg p-3 mb-6 relative z-10">
+            <div className="bg-warning-white/10 border border-warning-white/20 rounded-lg p-3 mb-6 relative z-10">
               <p className="text-xs text-text-secondary flex items-start gap-2">
-                <span className="text-warning-red">⚠️</span>
+                <span className="text-warning-white">⚠️</span>
                 <span>We collect ZERO personal data. Your session and device info are completely anonymous and auto-purge after 30 days.</span>
               </p>
             </div>
 
             <button
               onClick={handleEnter}
-              className="w-full relative z-10 py-3.5 bg-saffron hover:bg-saffron-light text-deep-navy font-bold rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(244,160,36,0.3)] flex items-center justify-center gap-2"
+              className="w-full relative z-10 py-3.5 bg-aqua hover:bg-aqua-light text-ink-black font-bold rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(244,160,36,0.3)] flex items-center justify-center gap-2"
             >
               ✅ ENTER OJAS CIRCLE
             </button>

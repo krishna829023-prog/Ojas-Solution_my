@@ -27,10 +27,10 @@ export function Navbar({ toggleSidebar }: { toggleSidebar: () => void }) {
       </div>
 
       <div className="flex items-center gap-3 md:gap-4">
-        <button className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border/50 hover:bg-saffron/10 text-text-secondary hover:text-saffron transition-colors">
+        <button className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border/50 hover:bg-aqua/10 text-text-secondary hover:text-aqua transition-colors">
           <Bell size={18} />
         </button>
-        <Link href="/profile" className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border/50 hover:bg-saffron/10 text-text-secondary hover:text-saffron transition-colors">
+        <Link href="/profile" className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border/50 hover:bg-aqua/10 text-text-secondary hover:text-aqua transition-colors">
           <UserCircle2 size={20} />
         </Link>
       </div>

@@ -34,14 +34,14 @@ const renderFormattedText = (text: string) => {
     if (listType === "bullet") {
       return (
         <div key={i} className="flex gap-3 mt-2 mb-2">
-          <span className="text-healing-green mt-1"><Sparkles size={14} /></span>
+          <span className="text-silver mt-1"><Sparkles size={14} /></span>
           <span className="text-white/80 leading-relaxed font-light">{formatBold(content)}</span>
         </div>
       );
     } else if (listType) {
       return (
         <div key={i} className="flex gap-3 mt-2 mb-2">
-          <span className="text-calm-blue font-bold">{listType}.</span>
+          <span className="text-pure-white font-bold">{listType}.</span>
           <span className="text-white/80 leading-relaxed font-light">{formatBold(content)}</span>
         </div>
       );
@@ -127,12 +127,12 @@ export default function AIPage() {
   ];
 
   return (
-    <div className="flex flex-col h-full min-h-[85vh] w-full relative bg-deep-navy overflow-hidden">
+    <div className="flex flex-col h-full min-h-[85vh] w-full relative bg-ink-black overflow-hidden">
 
       {/* Immersive Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-calm-blue/10 rounded-full blur-[120px] animate-pulse-glow" />
-        <div className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] bg-saffron/5 rounded-full blur-[150px] animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-pure-white/10 rounded-full blur-[120px] animate-pulse-glow" />
+        <div className="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] bg-aqua/5 rounded-full blur-[150px] animate-float" style={{ animationDelay: '2s' }} />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
@@ -140,7 +140,7 @@ export default function AIPage() {
       <div className="flex-1 w-full max-w-4xl mx-auto flex flex-col relative z-10 px-4 md:px-8 mt-4 pb-32 overflow-y-auto">
 
         {/* Header Alert */}
-        <div className="mb-6 mx-auto inline-flex items-center gap-2 px-4 py-2 bg-warning-red/10 border border-warning-red/20 rounded-full text-xs font-medium text-warning-red shadow-sm backdrop-blur-md">
+        <div className="mb-6 mx-auto inline-flex items-center gap-2 px-4 py-2 bg-warning-white/10 border border-warning-white/20 rounded-full text-xs font-medium text-warning-white shadow-sm backdrop-blur-md">
            <AlertTriangle size={14} />
            Ojas AI is educational. For clinical distress, call 14416.
         </div>
@@ -153,11 +153,11 @@ export default function AIPage() {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
               className="flex flex-col items-center justify-center text-center mt-auto mb-16 h-[60vh] md:h-[50vh]"
             >
-              <div className="w-20 h-20 bg-gradient-to-br from-calm-blue/30 to-calm-blue/5 border border-calm-blue/40 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(108,122,224,0.15)] relative group">
-                 <div className="absolute inset-0 bg-calm-blue/20 blur-xl rounded-3xl group-hover:bg-calm-blue/40 transition-colors" />
-                 <Bot size={40} className="text-calm-blue relative z-10 drop-shadow-[0_0_8px_rgba(108,122,224,0.8)]" />
+              <div className="w-20 h-20 bg-gradient-to-br from-pure-white/30 to-pure-white/5 border border-pure-white/40 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(108,122,224,0.15)] relative group">
+                 <div className="absolute inset-0 bg-pure-white/20 blur-xl rounded-3xl group-hover:bg-pure-white/40 transition-colors" />
+                 <Bot size={40} className="text-pure-white relative z-10 drop-shadow-[0_0_8px_rgba(108,122,224,0.8)]" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">How can I help you <span className="text-calm-blue">heal</span> today?</h1>
+              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">How can I help you <span className="text-pure-white">heal</span> today?</h1>
               <p className="text-text-secondary text-lg font-light max-w-lg mb-12">I am Ojas AI, your secure sanctuary for mental and physical wellness. Everything you say is private.</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl px-4">
@@ -166,7 +166,7 @@ export default function AIPage() {
                      key={i}
                      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + (i * 0.1) }}
                      onClick={() => { setInput(q); handleSend(q); }}
-                     className="text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-calm-blue/40 hover:bg-white/10 transition-all text-sm font-medium text-text-secondary hover:text-white"
+                     className="text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-pure-white/40 hover:bg-white/10 transition-all text-sm font-medium text-text-secondary hover:text-white"
                    >
                      {q}
                    </motion.button>
@@ -185,14 +185,14 @@ export default function AIPage() {
                   className={`flex gap-4 sm:gap-6 w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "model" && (
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center mt-1 border border-calm-blue/30 shadow-[0_0_15px_rgba(108,122,224,0.2)]">
-                      <Bot size={16} className="text-calm-blue" />
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-pure-white/20 flex items-center justify-center mt-1 border border-pure-white/30 shadow-[0_0_15px_rgba(108,122,224,0.2)]">
+                      <Bot size={16} className="text-pure-white" />
                     </div>
                   )}
 
                   <div className={`max-w-[85%] md:max-w-[75%] ${
                     msg.role === "user"
-                      ? "px-6 py-4 rounded-3xl rounded-tr-md bg-gradient-to-br from-saffron/20 to-saffron/10 text-white border border-saffron/30 shadow-[0_8px_32px_rgba(244,160,36,0.1)] backdrop-blur-md"
+                      ? "px-6 py-4 rounded-3xl rounded-tr-md bg-gradient-to-br from-aqua/20 to-aqua/10 text-white border border-aqua/30 shadow-[0_8px_32px_rgba(244,160,36,0.1)] backdrop-blur-md"
                       : "text-white/90"
                   }`}>
                     {msg.role === "model" ? (
@@ -209,13 +209,13 @@ export default function AIPage() {
 
             {isLoading && (
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex gap-4 w-full">
-                  <div className="shrink-0 w-8 h-8 rounded-full bg-calm-blue/20 flex items-center justify-center mt-1 border border-calm-blue/30 shadow-[0_0_10px_rgba(108,122,224,0.2)]">
-                    <Bot size={16} className="text-calm-blue animate-pulse" />
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-pure-white/20 flex items-center justify-center mt-1 border border-pure-white/30 shadow-[0_0_10px_rgba(108,122,224,0.2)]">
+                    <Bot size={16} className="text-pure-white animate-pulse" />
                   </div>
                   <div className="flex items-center gap-1.5 h-10 px-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-calm-blue/60 animate-bounce" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-calm-blue/60 animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-calm-blue/60 animate-bounce [animation-delay:0.4s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.4s]" />
                   </div>
                </motion.div>
             )}
@@ -225,12 +225,12 @@ export default function AIPage() {
       </div>
 
       {/* Floating Input Area */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 pt-24 bg-gradient-to-t from-deep-navy via-deep-navy/80 to-transparent z-20 flex justify-center pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 pt-24 bg-gradient-to-t from-ink-black via-ink-black/80 to-transparent z-20 flex justify-center pointer-events-none">
         <div className="w-full max-w-3xl relative pointer-events-auto">
-          {error && <p className="absolute -top-10 left-4 text-warning-red text-xs font-bold bg-warning-red/10 px-3 py-1.5 rounded-full backdrop-blur-md border border-warning-red/20 flex items-center gap-2"><AlertTriangle size={14} /> {error}</p>}
+          {error && <p className="absolute -top-10 left-4 text-warning-white text-xs font-bold bg-warning-white/10 px-3 py-1.5 rounded-full backdrop-blur-md border border-warning-white/20 flex items-center gap-2"><AlertTriangle size={14} /> {error}</p>}
 
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-calm-blue/20 to-saffron/20 rounded-[32px] blur-xl opacity-30 group-focus-within:opacity-80 transition duration-500" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-pure-white/20 to-aqua/20 rounded-[32px] blur-xl opacity-30 group-focus-within:opacity-80 transition duration-500" />
             <div className="relative flex items-end gap-3 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[28px] p-2 shadow-2xl transition-all group-focus-within:border-white/20">
               <textarea
                 value={input}
@@ -253,7 +253,7 @@ export default function AIPage() {
               <button
                 onClick={() => handleSend()}
                 disabled={!input.trim() || isLoading}
-                className="shrink-0 w-12 h-12 mb-1 mr-1 rounded-2xl bg-white hover:bg-neutral-200 text-deep-navy flex items-center justify-center transition-all disabled:opacity-30 disabled:hover:bg-white shadow-sm"
+                className="shrink-0 w-12 h-12 mb-1 mr-1 rounded-2xl bg-white hover:bg-neutral-200 text-ink-black flex items-center justify-center transition-all disabled:opacity-30 disabled:hover:bg-white shadow-sm"
               >
                 {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} className="ml-0.5" />}
               </button>

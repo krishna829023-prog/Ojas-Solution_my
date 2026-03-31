@@ -49,8 +49,8 @@ export default function ProfilePage() {
     <div className="max-w-xl mx-auto w-full px-4 sm:px-6 py-8 pb-32">
       {/* Profile Header */}
       <div className="flex flex-col items-center mb-8">
-        <div className="w-32 h-32 relative mb-4 rounded-full p-1 bg-gradient-to-tr from-saffron via-transparent to-calm-blue animate-pulse-glow shadow-[0_0_30px_rgba(244,160,36,0.2)]">
-          <div className="w-full h-full bg-dark-surface rounded-full flex items-center justify-center text-5xl">
+        <div className="w-32 h-32 relative mb-4 rounded-full p-1 bg-gradient-to-tr from-aqua via-transparent to-pure-white animate-pulse-glow shadow-[0_0_30px_rgba(244,160,36,0.2)]">
+          <div className="w-full h-full bg-obsidian rounded-full flex items-center justify-center text-5xl">
             {avatar}
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function ProfilePage() {
         </p>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-4 w-full mt-6 bg-dark-surface border border-border/50 rounded-2xl p-4 divide-x divide-border/50">
+        <div className="grid grid-cols-3 gap-4 w-full mt-6 bg-obsidian border border-border/50 rounded-2xl p-4 divide-x divide-border/50">
           <div className="flex flex-col items-center justify-center">
             <span className="text-sm text-text-muted">Posts</span>
             <span className="text-xl font-bold text-white">23</span>
@@ -74,7 +74,7 @@ export default function ProfilePage() {
           </div>
           <div className="flex flex-col items-center justify-center">
             <span className="text-sm text-text-muted">Streak</span>
-            <span className="text-xl font-bold text-saffron flex items-center gap-1">
+            <span className="text-xl font-bold text-aqua flex items-center gap-1">
               45 <span className="text-sm">🔥</span>
             </span>
           </div>
@@ -85,8 +85,8 @@ export default function ProfilePage() {
           <h3 className="text-sm text-text-muted font-bold tracking-wider uppercase mb-3 px-2">🏅 Badges Earned</h3>
           <div className="flex flex-wrap gap-2">
             {['Ojas Warrior', '7-Day Champ', 'Helpful Soul', '30-Day Monk'].map(badge => (
-              <span key={badge} className="px-3 py-1.5 bg-white/5 border border-border/50 rounded-lg text-sm font-medium text-saffron-light flex items-center gap-1.5 shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-saffron" />
+              <span key={badge} className="px-3 py-1.5 bg-white/5 border border-border/50 rounded-lg text-sm font-medium text-aqua-light flex items-center gap-1.5 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-aqua" />
                 {badge}
               </span>
             ))}
@@ -103,10 +103,10 @@ export default function ProfilePage() {
           </div>
           <div className="p-2">
             {[
-              { icon: FileText, label: "My Posts (23)", color: "text-calm-blue" },
-              { icon: RefreshCw, label: "My Comments (89)", color: "text-healing-green" },
-              { icon: FileText, label: "Saved Posts (12)", color: "text-saffron" },
-              { icon: Trophy, label: "My Challenges (4)", color: "text-saffron" },
+              { icon: FileText, label: "My Posts (23)", color: "text-pure-white" },
+              { icon: RefreshCw, label: "My Comments (89)", color: "text-silver" },
+              { icon: FileText, label: "Saved Posts (12)", color: "text-aqua" },
+              { icon: Trophy, label: "My Challenges (4)", color: "text-aqua" },
             ].map((item, i) => (
               <button key={i} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors">
                 <div className="flex items-center gap-3">
@@ -140,12 +140,12 @@ export default function ProfilePage() {
 
             <div className="h-px bg-border/50 my-2 mx-3" />
 
-            <button onClick={handleDeleteData} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-critical-red/10 transition-colors group">
+            <button onClick={handleDeleteData} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-alert-white/10 transition-colors group">
               <div className="flex items-center gap-3">
-                <Trash2 size={18} className="text-critical-red transition-colors" />
-                <span className="font-medium text-critical-red">Delete All My Data</span>
+                <Trash2 size={18} className="text-alert-white transition-colors" />
+                <span className="font-medium text-alert-white">Delete All My Data</span>
               </div>
-              <ChevronRight size={16} className="text-critical-red/50 group-hover:text-critical-red" />
+              <ChevronRight size={16} className="text-alert-white/50 group-hover:text-alert-white" />
             </button>
             
             <button onClick={handleExit} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group">

@@ -54,19 +54,19 @@ export function PostItem({ post }: { post: Post }) {
   };
 
   return (
-    <div className="glass-card p-5 sm:p-7 relative overflow-hidden group hover:border-saffron/30 transition-all duration-500 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] bg-dark-surface/40">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-saffron/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+    <div className="glass-card p-5 sm:p-7 relative overflow-hidden group hover:border-aqua/30 transition-all duration-500 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] bg-obsidian/40">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-aqua/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       
       <div className="flex justify-between items-start mb-5 relative z-10">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-saffron/10 border border-saffron/20 flex items-center justify-center text-2xl shadow-inner shrink-0">
+          <div className="w-12 h-12 rounded-full bg-aqua/10 border border-aqua/20 flex items-center justify-center text-2xl shadow-inner shrink-0">
             {post.author.avatar}
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h4 className="font-bold text-white leading-tight">{post.author.name}</h4>
               {post.upvotes >= 300 && (
-                <span className="inline-flex items-center gap-1 bg-saffron/20 text-saffron text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-saffron/30">
+                <span className="inline-flex items-center gap-1 bg-aqua/20 text-aqua text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-aqua/30">
                   <Award size={12} /> Compassionate Listener
                 </span>
               )}
@@ -89,12 +89,12 @@ export function PostItem({ post }: { post: Post }) {
                 initial={{ opacity: 0, scale: 0.95, y: -10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                className="absolute top-full right-0 mt-2 w-48 bg-dark-surface/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden z-50 py-1"
+                className="absolute top-full right-0 mt-2 w-48 bg-obsidian/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.6)] overflow-hidden z-50 py-1"
               >
                 <button onClick={() => setShowMenu(false)} className="w-full text-left px-4 py-3 text-sm text-text-secondary hover:text-white hover:bg-white/5 flex items-center gap-3 transition-colors">
                   <BellOff size={16} /> Mute Topic
                 </button>
-                <button onClick={() => setShowMenu(false)} className="w-full text-left px-4 py-3 text-sm text-critical-red hover:bg-critical-red/10 flex items-center gap-3 transition-colors">
+                <button onClick={() => setShowMenu(false)} className="w-full text-left px-4 py-3 text-sm text-alert-white hover:bg-alert-white/10 flex items-center gap-3 transition-colors">
                   <Flag size={16} /> Report Content
                 </button>
               </motion.div>
@@ -110,16 +110,16 @@ export function PostItem({ post }: { post: Post }) {
       {/* AI Summary Block - "Community Notes" style */}
       {post.aiSummary && (
         <div className={`mt-5 mb-6 rounded-2xl border p-5 relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.2)] backdrop-blur-md ${
-          post.aiSummary.level === 'critical' ? 'bg-[#2A0F15]/60 border-critical-red/40' :
-          post.aiSummary.level === 'warning' ? 'bg-[#2A1F0D]/60 border-warning-red/40' :
-          'bg-[#0D1B2A]/60 border-saffron/40' 
+          post.aiSummary.level === 'critical' ? 'bg-[#2A0F15]/60 border-alert-white/40' :
+          post.aiSummary.level === 'warning' ? 'bg-[#2A1F0D]/60 border-warning-white/40' :
+          'bg-[#0D1B2A]/60 border-aqua/40' 
         }`}>
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
           <div className="flex items-center gap-2 mb-4 border-b border-border/40 pb-3 relative z-10">
             <Bot size={16} className={
-              post.aiSummary.level === 'critical' ? 'text-critical-red' :
-              post.aiSummary.level === 'warning' ? 'text-warning-red' :
-              'text-calm-blue'
+              post.aiSummary.level === 'critical' ? 'text-alert-white' :
+              post.aiSummary.level === 'warning' ? 'text-warning-white' :
+              'text-pure-white'
             } />
             <span className="text-xs font-bold tracking-wider uppercase text-text-secondary">
               AI Health Insight
@@ -129,8 +129,8 @@ export function PostItem({ post }: { post: Post }) {
           <div className="space-y-3 text-sm">
             {post.aiSummary.warning && (
               <div className="flex gap-2">
-                <AlertTriangle size={16} className="text-warning-red shrink-0 mt-0.5" />
-                <p className="text-text-primary"><span className="font-bold text-warning-red">Warning: </span>{post.aiSummary.warning}</p>
+                <AlertTriangle size={16} className="text-warning-white shrink-0 mt-0.5" />
+                <p className="text-text-primary"><span className="font-bold text-warning-white">Warning: </span>{post.aiSummary.warning}</p>
               </div>
             )}
             
@@ -143,9 +143,9 @@ export function PostItem({ post }: { post: Post }) {
 
             {post.aiSummary.ayurvedic && post.aiSummary.ayurvedic.length > 0 && (
               <div className="flex gap-2">
-                <Leaf size={16} className="text-healing-green shrink-0 mt-0.5" />
+                <Leaf size={16} className="text-silver shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-healing-green">Ayurvedic Alternative:</span>
+                  <span className="font-bold text-silver">Ayurvedic Alternative:</span>
                   <ul className="list-disc list-inside mt-1 text-text-secondary">
                     {post.aiSummary.ayurvedic.map((item, i) => (
                       <li key={i}>{item}</li>
@@ -157,8 +157,8 @@ export function PostItem({ post }: { post: Post }) {
 
             {post.aiSummary.medical && (
               <div className="flex gap-2">
-                <Stethoscope size={16} className="text-calm-blue shrink-0 mt-0.5" />
-                <p className="text-text-secondary"><span className="font-bold text-calm-blue">Medical Note: </span>{post.aiSummary.medical}</p>
+                <Stethoscope size={16} className="text-pure-white shrink-0 mt-0.5" />
+                <p className="text-text-secondary"><span className="font-bold text-pure-white">Medical Note: </span>{post.aiSummary.medical}</p>
               </div>
             )}
 
@@ -171,11 +171,11 @@ export function PostItem({ post }: { post: Post }) {
             
             {/* Optional Helpline CTA if Critical */}
             {post.aiSummary.level === 'critical' && (
-              <div className="mt-3 p-3 bg-white/5 rounded-lg border border-critical-red/20 text-center">
+              <div className="mt-3 p-3 bg-white/5 rounded-lg border border-alert-white/20 text-center">
                 <p className="text-white font-bold mb-1">🆘 Talk to someone now</p>
                 <div className="flex justify-center gap-4 text-sm text-text-secondary">
-                  <span>Tele-MANAS: <a href="tel:14416" className="text-saffron hover:underline">14416</a></span>
-                  <span>iCALL: <a href="tel:9152987821" className="text-saffron hover:underline">9152987821</a></span>
+                  <span>Tele-MANAS: <a href="tel:14416" className="text-aqua hover:underline">14416</a></span>
+                  <span>iCALL: <a href="tel:9152987821" className="text-aqua hover:underline">9152987821</a></span>
                 </div>
               </div>
             )}
@@ -188,7 +188,7 @@ export function PostItem({ post }: { post: Post }) {
         <div className="flex items-center gap-2 sm:gap-4 -ml-2">
           <button 
             onClick={handleUpvote}
-            className={`flex items-center gap-2 transition-colors p-2 sm:p-3 rounded-full hover:bg-white/5 ${upvoted ? 'text-healing-green' : 'text-text-secondary hover:text-white'}`}
+            className={`flex items-center gap-2 transition-colors p-2 sm:p-3 rounded-full hover:bg-white/5 ${upvoted ? 'text-silver' : 'text-text-secondary hover:text-white'}`}
           >
             <motion.div
               animate={upvoted ? { scale: [1, 1.4, 1] } : {}}
@@ -227,7 +227,7 @@ export function PostItem({ post }: { post: Post }) {
             exit={{ opacity: 0, height: 0 }}
             className="mt-4 pt-4 border-t border-border/30 overflow-hidden"
           >
-            <div className="space-y-4 mb-4 max-h-64 overflow-y-auto pr-2 scrollbar-hide">
+            <div className="space-y-4 mb-4 max-h-[440px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               {replies.length > 0 ? replies.map((reply) => (
                 <div key={reply.id} className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-sm">
@@ -253,13 +253,13 @@ export function PostItem({ post }: { post: Post }) {
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAddComment()}
                 placeholder="Post an anonymous reply..." 
-                className="flex-1 bg-white/5 border border-border/50 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-saffron/50 transition-colors"
+                className="flex-1 bg-white/5 border border-border/50 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-aqua/50 transition-colors"
                 maxLength={280}
               />
               <button 
                 onClick={handleAddComment}
                 disabled={!newComment.trim()}
-                className="px-4 py-2 bg-saffron text-deep-navy font-bold rounded-full text-sm disabled:opacity-50 transition-colors"
+                className="px-4 py-2 bg-aqua text-ink-black font-bold rounded-full text-sm disabled:opacity-50 transition-colors"
               >
                 Reply
               </button>

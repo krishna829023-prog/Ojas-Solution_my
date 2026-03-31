@@ -33,7 +33,7 @@ export function BottomNav() {
               href={item.path}
               className={cn(
                 "flex flex-col items-center justify-center w-full h-full gap-1 transition-colors",
-                isActive ? "text-saffron" : "text-text-secondary hover:text-white"
+                isActive ? "text-aqua" : "text-text-secondary hover:text-white"
               )}
             >
               <Icon size={20} className={isActive ? "animate-pulse-glow rounded-full" : ""} />

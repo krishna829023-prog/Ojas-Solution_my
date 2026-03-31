@@ -31,16 +31,16 @@
   --chart-5: oklch(0.6 0.15 40);
   --radius: 0.75rem;
   
-  /* Custom Ojas tokens - New Palette: Midnight & Dawn */
-  --saffron: oklch(0.75 0.14 65); /* Warm Sunrise Peach */
-  --saffron-light: oklch(0.85 0.1 65);
-  --healing-green: oklch(0.75 0.12 165); /* Soft Mint/Teal */
-  --calm-blue: oklch(0.68 0.14 285); /* Soft Lavender */
-  --deep-navy: oklch(0.14 0.02 200); /* Deep Midnight/Ocean */
-  --dark-surface: oklch(0.18 0.02 200);
-  --card-bg: oklch(0.20 0.02 200);
-  --warning-red: oklch(0.6 0.2 25);
-  --critical-red: oklch(0.5 0.25 20);
+  /* Custom Ojas tokens - New Palette: Black, Aqua & White */
+  --aqua: oklch(0.7 0.15 210); /* Bright Aqua */
+  --aqua-light: oklch(0.85 0.1 210);
+  --silver: oklch(0.90 0 0); /* Replaces healing-green */
+  --pure-white: oklch(1 0 0); /* Replaces calm-blue */
+  --ink-black: oklch(0.12 0 0); /* Replaces deep-navy */
+  --obsidian: oklch(0.16 0 0); /* Replaces dark-surface */
+  --card-bg: oklch(0.16 0 0);
+  --warning-white: oklch(0.95 0 0);
+  --alert-white: oklch(1 0 0);
   
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -59,24 +59,24 @@
   --card-foreground: oklch(0.98 0.01 200);
   --popover: oklch(0.18 0.02 200);
   --popover-foreground: oklch(0.98 0.01 200);
-  --primary: oklch(0.75 0.14 65); /* Warm Sunrise Peach */
-  --primary-foreground: oklch(0.14 0.02 200);
-  --secondary: oklch(0.75 0.12 165); /* Soft Mint/Teal */
-  --secondary-foreground: oklch(0.14 0.02 200);
-  --muted: oklch(0.22 0.02 200);
-  --muted-foreground: oklch(0.65 0.02 200);
-  --accent: oklch(0.68 0.14 285);
-  --accent-foreground: oklch(0.98 0.01 200);
-  --destructive: oklch(0.45 0.2 25);
-  --destructive-foreground: oklch(0.98 0.01 200);
-  --border: oklch(0.28 0.02 200);
-  --input: oklch(0.22 0.02 200);
-  --ring: oklch(0.75 0.14 65);
-  --chart-1: oklch(0.75 0.14 65);
-  --chart-2: oklch(0.75 0.12 165);
-  --chart-3: oklch(0.68 0.14 285);
-  --chart-4: oklch(0.7 0.15 330);
-  --chart-5: oklch(0.6 0.15 40);
+  --primary: oklch(0.7 0.15 210); /* Bright Aqua */
+  --primary-foreground: oklch(0.12 0 0);
+  --secondary: oklch(0.90 0 0); /* Silver */
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(1 0 0);
+  --destructive-foreground: oklch(0.12 0 0);
+  --border: oklch(0.28 0 0);
+  --input: oklch(0.22 0 0);
+  --ring: oklch(0.7 0.15 210);
+  --chart-1: oklch(0.7 0.15 210);
+  --chart-2: oklch(0.9 0 0);
+  --chart-3: oklch(1 0 0);
+  --chart-4: oklch(0.8 0 0);
+  --chart-5: oklch(0.75 0 0);
   
   --sidebar: oklch(0.18 0.035 270);
   --sidebar-foreground: oklch(0.98 0.005 270);
@@ -129,14 +129,14 @@
   --color-sidebar-ring: var(--sidebar-ring);
   
   /* Custom Ojas color tokens */
-  --color-saffron: var(--saffron);
-  --color-saffron-light: var(--saffron-light);
-  --color-healing-green: var(--healing-green);
-  --color-calm-blue: var(--calm-blue);
-  --color-deep-navy: var(--deep-navy);
-  --color-dark-surface: var(--dark-surface);
-  --color-warning-red: var(--warning-red);
-  --color-critical-red: var(--critical-red);
+  --color-aqua: var(--aqua);
+  --color-aqua-light: var(--aqua-light);
+  --color-silver: var(--silver);
+  --color-pure-white: var(--pure-white);
+  --color-ink-black: var(--ink-black);
+  --color-obsidian: var(--obsidian);
+  --color-warning-white: var(--warning-white);
+  --color-alert-white: var(--alert-white);
 }
 
 @layer base {
@@ -177,12 +177,12 @@
 }
 
 /* Glow effects */
-.glow-saffron {
-  box-shadow: 0 0 30px rgba(244, 160, 36, 0.3);
+.glow-aqua {
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
 }
 
-.glow-green {
-  box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
+.glow-silver {
+  box-shadow: 0 0 30px rgba(200, 200, 200, 0.3);
 }
 
 /* Floating animation */
@@ -228,7 +228,7 @@
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #F4A024 0%, #2ECC71 100%);
+  background: linear-gradient(135deg, #00FFFF 0%, #FFFFFF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

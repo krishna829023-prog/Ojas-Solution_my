@@ -72,7 +72,7 @@ export function Lotus3D() {
         
         {/* Center of lotus */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-saffron-light"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-primary to-aqua-light"
           style={{
             transform: 'translateX(-50%) translateY(-50%) translateZ(30px)',
             boxShadow: '0 0 30px rgba(244, 160, 36, 0.6)',
