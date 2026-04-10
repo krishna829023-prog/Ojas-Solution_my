@@ -8,11 +8,11 @@ export async function POST(req: Request) {
     const { messages, mode }: { messages: UIMessage[], mode?: string } = await req.json();
 
     let modeRules = "";
-    if (mode === "doctor" || mode === "specialist") {
+    if (mode === "healer" || mode === "guardian") {
       modeRules = `CURRENT MODE: ${mode.toUpperCase()}.\nCRITICAL RULES FOR THIS MODE:\n- You must NOT suggest any kind of pill or allopathy medicine.\n- You MUST include a disclaimer that you are not a doctor and not 100% correct.`;
     } else {
-      // Default to advisor mode
-      modeRules = `CURRENT MODE: ADVISOR.\nCRITICAL RULES FOR THIS MODE:\n- NEVER suggest a doctor.\n- Do NOT suggest any allopathy medicine. Instead, suggest homeopathy and ayurvedic remedies.\n- You MUST ALWAYS add the exact line "I am not a doctor" in your response.`;
+      // Default to guide mode
+      modeRules = `CURRENT MODE: GUIDE.\nCRITICAL RULES FOR THIS MODE:\n- NEVER suggest a doctor.\n- Do NOT suggest any allopathy medicine. Instead, suggest homeopathy and ayurvedic remedies.\n- You MUST ALWAYS add the exact line "I am not a doctor" in your response.`;
     }
 
     const finalSystemPrompt = `${SYSTEM_PROMPT}\n\n${modeRules}`;
