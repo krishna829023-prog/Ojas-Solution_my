@@ -2,15 +2,22 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 
+const LEGACY_STORAGE_KEY = 'ojas_user_data'
+const AUTH_SESSION_KEY = 'ojas_auth_session'
+
 const adjectives = ['Silent', 'Brave', 'Calm', 'Bold', 'Wise', 'Swift', 'Noble', 'Pure', 'Strong', 'Gentle']
 const nouns = ['Phoenix', 'Tiger', 'Wave', 'Storm', 'Monk', 'Warrior', 'Eagle', 'Lion', 'Lotus', 'Spirit']
-const avatars = ['🪷', '🦁', '🌊', '🔥', '🌿', '🛡️', '⚡', '🧘']
+export const avatars = ['🪷', '🦁', '🌊', '🔥', '🌿', '🛡️', '⚡', '🧘']
 
-function generateUsername() {
+export function generateUsername() {
   const adj = adjectives[Math.floor(Math.random() * adjectives.length)]
   const noun = nouns[Math.floor(Math.random() * nouns.length)]
   const num = Math.floor(1000 + Math.random() * 9000)
   return `${adj}${noun}_${num}`
+}
+
+function userStorageKey(username: string) {
+  return `ojas_user_data_${username}`
 }
 
 interface UserData {
@@ -20,7 +27,7 @@ interface UserData {
   savedPosts: string[]
   likedPosts: string[]
   streak: number
-  streakDays: string[] // ISO date strings
+  streakDays: string[]
   resetDays: string[]
   badges: { name: string; earned: boolean }[]
   notifications: boolean
@@ -45,12 +52,12 @@ interface UserContextType {
   joinChallenge: (challengeId: string, totalDays: number) => void
   completeChallengeDay: (challengeId: string, day: number) => void
   clearAllData: () => void
+  clearUserSession: () => void
   initializeUser: (username: string, avatar: string) => void
+  loadOrCreateUser: (username: string) => void
 }
 
 const UserContext = createContext<UserContextType | null>(null)
-
-const STORAGE_KEY = 'ojas_user_data'
 
 const defaultBadges = [
   { name: 'Ojas Warrior', earned: false },
@@ -59,30 +66,72 @@ const defaultBadges = [
   { name: '30-Day Monk', earned: false },
 ]
 
+function createDefaultUserData(username: string): UserData {
+  return {
+    username,
+    avatar: avatars[Math.floor(Math.random() * avatars.length)],
+    joinedRooms: [],
+    savedPosts: [],
+    likedPosts: [],
+    streak: 0,
+    streakDays: [],
+    resetDays: [],
+    badges: defaultBadges,
+    notifications: true,
+    joinedChallenges: [],
+  }
+}
+
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserData | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
-  // Load user data from localStorage on mount
+  // Load user data on mount — keyed by authenticated username when available
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY)
-      if (stored) {
-        const parsed = JSON.parse(stored)
-        setUser(parsed)
+      const session = localStorage.getItem(AUTH_SESSION_KEY)
+      if (session) {
+        const { username } = JSON.parse(session)
+        const key = userStorageKey(username)
+        const stored = localStorage.getItem(key)
+        if (stored) {
+          setUser(JSON.parse(stored))
+        }
+        // If no stored data for this user, stay null until loadOrCreateUser is called
+      } else {
+        // Not authenticated — try legacy key for backward compat
+        const stored = localStorage.getItem(LEGACY_STORAGE_KEY)
+        if (stored) {
+          setUser(JSON.parse(stored))
+        }
       }
     } catch {
-      // Keep user as null if parsing fails
+      // Keep user as null
     }
     setIsLoaded(true)
   }, [])
 
-  // Save user data to localStorage whenever it changes
+  // Auto-save user data to per-user key whenever it changes
   useEffect(() => {
     if (user && isLoaded) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+      localStorage.setItem(userStorageKey(user.username), JSON.stringify(user))
     }
   }, [user, isLoaded])
+
+  // Load existing data for a user, or create a fresh profile
+  const loadOrCreateUser = useCallback((username: string) => {
+    const key = userStorageKey(username)
+    try {
+      const stored = localStorage.getItem(key)
+      if (stored) {
+        setUser(JSON.parse(stored))
+      } else {
+        setUser(createDefaultUserData(username))
+      }
+    } catch {
+      setUser(createDefaultUserData(username))
+    }
+  }, [])
 
   const initializeUser = useCallback((username: string, avatar: string) => {
     const newUser: UserData = {
@@ -162,30 +211,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setUser(prev => {
       if (!prev) return null
       if (prev.streakDays.includes(today)) return prev
-      
+
       const newStreakDays = [...prev.streakDays, today]
       const newStreak = prev.streak + 1
-      
-      // Check for badge unlocks
+
       const newBadges = prev.badges.map(badge => {
-        if (badge.name === '7-Day Champ' && newStreak >= 7) {
-          return { ...badge, earned: true }
-        }
-        if (badge.name === '30-Day Monk' && newStreak >= 30) {
-          return { ...badge, earned: true }
-        }
-        if (badge.name === 'Ojas Warrior' && newStreak >= 1) {
-          return { ...badge, earned: true }
-        }
+        if (badge.name === '7-Day Champ' && newStreak >= 7) return { ...badge, earned: true }
+        if (badge.name === '30-Day Monk' && newStreak >= 30) return { ...badge, earned: true }
+        if (badge.name === 'Ojas Warrior' && newStreak >= 1) return { ...badge, earned: true }
         return badge
       })
-      
-      return { 
-        ...prev, 
-        streakDays: newStreakDays, 
-        streak: newStreak,
-        badges: newBadges,
-      }
+
+      return { ...prev, streakDays: newStreakDays, streak: newStreak, badges: newBadges }
     })
   }, [])
 
@@ -197,8 +234,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         ...prev,
         joinedChallenges: [
           ...prev.joinedChallenges,
-          { id: challengeId, currentDay: 1, completedDays: [] }
-        ]
+          { id: challengeId, currentDay: 1, completedDays: [] },
+        ],
       }
     })
   }, [])
@@ -211,18 +248,21 @@ export function UserProvider({ children }: { children: ReactNode }) {
         joinedChallenges: prev.joinedChallenges.map(c => {
           if (c.id !== challengeId) return c
           if (c.completedDays.includes(day)) return c
-          return {
-            ...c,
-            completedDays: [...c.completedDays, day],
-            currentDay: day + 1
-          }
-        })
+          return { ...c, completedDays: [...c.completedDays, day], currentDay: day + 1 }
+        }),
       }
     })
   }, [])
 
+  // Clears user profile data from localStorage (account deletion)
   const clearAllData = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY)
+    if (user) localStorage.removeItem(userStorageKey(user.username))
+    localStorage.removeItem(LEGACY_STORAGE_KEY)
+    setUser(null)
+  }, [user])
+
+  // Clears user from memory only (keeps localStorage intact for next login)
+  const clearUserSession = useCallback(() => {
     setUser(null)
   }, [])
 
@@ -241,7 +281,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
       joinChallenge,
       completeChallengeDay,
       clearAllData,
+      clearUserSession,
       initializeUser,
+      loadOrCreateUser,
     }}>
       {children}
     </UserContext.Provider>
@@ -255,5 +297,3 @@ export function useUser() {
   }
   return context
 }
-
-export { avatars, generateUsername }

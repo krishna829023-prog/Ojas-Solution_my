@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { AnonymousOnboarding } from "@/components/auth/anonymous-onboarding";
+import { useAuth } from "@/lib/auth-context";
 import { ShieldCheck, Leaf, BrainCircuit, MessageSquare, Activity, Shield, ArrowRight, Lock } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
@@ -35,7 +35,7 @@ const TypewriterText = ({ text, delay = 0, className = "" }: { text: string, del
 };
 
 export default function Home() {
-  const [showOnboarding, setShowOnboarding] = useState(false);
+  const { openAuthModal, isAuthenticated } = useAuth();
   const { scrollYProgress } = useScroll();
   const yElement = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
@@ -111,11 +111,12 @@ export default function Home() {
           >
             <div className="relative group w-full sm:w-auto">
               <button
-                onClick={() => setShowOnboarding(true)}
+                id="hero-enter-btn"
+                onClick={openAuthModal}
                 className="relative flex items-center justify-center px-8 py-5 md:py-4 font-bold text-ink-black bg-aqua rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_rgba(244,160,36,0.3)] hover:shadow-[0_0_60px_rgba(244,160,36,0.6)] w-full sm:w-auto"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2 text-lg w-full">
-                  Enter Anonymously <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  {isAuthenticated ? "Go to Feed" : "Enter Ojas Circle"} <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
               </button>
@@ -125,9 +126,9 @@ export default function Home() {
                 <div className="bg-obsidian/95 backdrop-blur-xl border border-white/10 rounded-xl p-4 shadow-[0_20px_40px_rgba(0,0,0,0.5)] flex flex-col gap-2.5 relative">
                   <div className="hidden sm:block absolute -bottom-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-t-obsidian/95" />
                   <div className="sm:hidden block absolute -top-2 left-1/2 -translate-x-1/2 border-8 border-transparent border-b-obsidian/95" />
-                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><Lock size={14} className="text-aqua shrink-0"/> 1. No names or emails required</p>
-                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><ShieldCheck size={14} className="text-silver shrink-0"/> 2. Data stored locally</p>
-                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><Leaf size={14} className="text-pure-white shrink-0"/> 3. Freedom to heal safely</p>
+                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><Lock size={14} className="text-aqua shrink-0"/> 1. No email required</p>
+                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><ShieldCheck size={14} className="text-silver shrink-0"/> 2. Credentials stored locally only</p>
+                  <p className="text-xs text-white/90 flex items-center gap-2 font-medium"><Leaf size={14} className="text-pure-white shrink-0"/> 3. Pseudonymous identity — stay safe</p>
                 </div>
               </div>
             </div>
@@ -207,7 +208,7 @@ export default function Home() {
                 <h4 className="font-bold text-white tracking-widest uppercase text-[10px]">Trending Insight</h4>
               </div>
               <p className="text-sm text-white/90 italic font-light leading-snug relative z-10">
-                "Warm milk infused with a pinch of nutmeg before bed can drastically calm your Vata dosha, reducing late-night anxiety."
+                &quot;Warm milk infused with a pinch of nutmeg before bed can drastically calm your Vata dosha, reducing late-night anxiety.&quot;
               </p>
             </motion.div>
           </div>
@@ -244,7 +245,7 @@ export default function Home() {
             <div className="p-4 bg-obsidian border border-border/50 rounded-xl relative z-10 w-full max-w-md">
                <div className="flex gap-3 items-start">
                  <div className="w-8 h-8 rounded-full bg-aqua/20 flex items-center justify-center text-aqua shrink-0"><BrainCircuit size={16} /></div>
-                 <p className="text-sm text-white/90">"I noticed you're feeling anxious tonight. Taking Ashwagandha root with warm milk might help ground your nervous system. Would you like to talk about why you're stressed?"</p>
+                 <p className="text-sm text-white/90">&quot;I noticed you&#39;re feeling anxious tonight. Taking Ashwagandha root with warm milk might help ground your nervous system. Would you like to talk about why you&#39;re stressed?&quot;</p>
                </div>
             </div>
           </motion.div>
@@ -284,7 +285,7 @@ export default function Home() {
             <div className="w-14 h-14 bg-aqua/10 rounded-2xl flex items-center justify-center mb-6">
               <Activity className="text-aqua" size={28} />
             </div>
-            <h3 className="text-2xl font-bold mb-3 text-white">Gamified Streaks & Profiles</h3>
+            <h3 className="text-2xl font-bold mb-3 text-white">Gamified Streaks &amp; Profiles</h3>
             <p className="text-text-secondary leading-relaxed max-w-md mb-8">
               Stay motivated by tracking your NoFap or mental wellness challenges. Earn anonymous profile badges and map your long-term progress entirely on your local device.
             </p>
@@ -309,19 +310,21 @@ export default function Home() {
           className="relative z-20 pb-16 text-center px-6"
         >
           <h2 className="text-4xl md:text-6xl font-black mb-6">Ready to heal?</h2>
-        <p className="text-xl text-text-secondary mb-10 max-w-2xl mx-auto">Skip the email. Skip the password. Just click below and enter your private sanctuary.</p>
-        <button
-          onClick={() => setShowOnboarding(true)}
-          className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-ink-black bg-aqua rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_rgba(244,160,36,0.3)]"
-        >
-          <span className="relative z-10 flex items-center gap-2 text-xl tracking-wide uppercase">
-            Start Your Journey <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
-          </span>
-        </button>
+          <p className="text-xl text-text-secondary mb-10 max-w-2xl mx-auto">
+            No email needed. Just a pseudonymous username and a secure password—stored only on your device.
+          </p>
+          <button
+            id="cta-enter-btn"
+            onClick={openAuthModal}
+            className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-ink-black bg-aqua rounded-full overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_rgba(244,160,36,0.3)]"
+          >
+            <span className="relative z-10 flex items-center gap-2 text-xl tracking-wide uppercase">
+              {isAuthenticated ? "Back to Feed" : "Start Your Journey"} <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+            </span>
+          </button>
         </motion.section>
       </div>
 
-      <AnonymousOnboarding isOpen={showOnboarding} onClose={() => setShowOnboarding(false)} />
     </div>
   );
 }

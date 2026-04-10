@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
+import { AuthProvider } from '@/lib/auth-context'
 import { UserProvider } from '@/lib/user-context'
 import { Toaster } from '@/components/ui/toaster'
 import { Analytics } from '@vercel/analytics/next'
@@ -46,12 +47,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <UserProvider>
-            <AppLayout>
-              {children}
-            </AppLayout>
-            <Toaster />
-          </UserProvider>
+          <AuthProvider>
+            <UserProvider>
+              <AppLayout>
+                {children}
+              </AppLayout>
+              <Toaster />
+            </UserProvider>
+          </AuthProvider>
         </ThemeProvider>
         <Analytics />
       </body>
