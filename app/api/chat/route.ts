@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       system: finalSystemPrompt,
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     console.error('Chat API Error:', error);
     return new Response(JSON.stringify({ error: 'Failed to generate response' }), {

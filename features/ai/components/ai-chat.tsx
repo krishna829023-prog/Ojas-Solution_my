@@ -1,48 +1,105 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Bot, AlertTriangle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useChat } from "@ai-sdk/react";
-import { UIMessage } from "ai";
 import { ChatMessage } from "./chat-message";
 import { ChatInput } from "./chat-input";
 
-const INITIAL_MESSAGE: UIMessage = {
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
+
+const INITIAL_MESSAGE: Message = {
   id: "initial-greeting",
   role: "assistant",
-  parts: [{ type: "text", text: "Namaste. I am Ojas AI. Kya chal raha hai dimaag mein? Your secrets are completely safe with me." }],
+  content: "Hello! I am Ojas AI, your secure wellness companion. Your secrets are completely safe with me. What's on your mind today?",
 };
 
 export function AiChat() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("guide");
-  // Key insight: useChat's body is captured at mount time and doesn't update.
-  // We use a ref that is always fresh and pass it on every request via the fetch option.
-  const modeRef = useRef("guide");
-  const updateMode = (m: string) => { setMode(m); modeRef.current = m; };
-
-  const { messages, status, error, sendMessage } = useChat({
-    messages: [INITIAL_MESSAGE],
-    fetch: async (url, init) => {
-      // Inject the CURRENT mode from ref into the request body on every call
-      const body = JSON.parse((init?.body as string) || "{}");
-      body.mode = modeRef.current;
-      return fetch(url, { ...init, body: JSON.stringify(body) });
-    },
-  });
-  
-  const isLoading = status === "streaming" || status === "submitted";
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false); // true while waiting for first token
+  const [error, setError] = useState<Error | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const updateMode = (m: string) => setMode(m);
+
+  // Custom streaming send — mode is embedded directly in every request
+  const sendMessage = useCallback(async (text: string) => {
+    if (!text.trim() || isStreaming) return;
+
+    const userMsg: Message = { id: Date.now().toString(), role: "user", content: text };
+    const allMessages = [...messages, userMsg];
+    setMessages(allMessages);
+    setIsStreaming(true);
+    setIsWaiting(true);  // show dots animation immediately
+    setError(null);
+
+    const assistantId = (Date.now() + 1).toString();
+
+    try {
+      abortRef.current = new AbortController();
+
+      const apiMessages = allMessages.map(m => ({
+        id: m.id,
+        role: m.role,
+        parts: [{ type: "text", text: m.content }],
+        content: m.content,
+      }));
+
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: apiMessages, mode }),
+        signal: abortRef.current.signal,
+      });
+
+      if (!response.ok || !response.body) throw new Error("API request failed");
+
+      // Add the empty assistant placeholder only AFTER we confirm the response started
+      setMessages(prev => [...prev, { id: assistantId, role: "assistant", content: "" }]);
+      setIsWaiting(false); // first token arriving — hide dots, show streaming text
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulated = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        // Plain text stream — just decode and append each chunk directly
+        const chunk = decoder.decode(value, { stream: true });
+        accumulated += chunk;
+        setMessages(prev =>
+          prev.map(m => m.id === assistantId ? { ...m, content: accumulated } : m)
+        );
+      }
+    } catch (err) {
+      if ((err as Error).name !== "AbortError") {
+        setError(err as Error);
+        setMessages(prev => prev.filter(m => m.id !== assistantId));
+      }
+    } finally {
+      setIsStreaming(false);
+      setIsWaiting(false);
+    }
+  }, [messages, mode, isStreaming]);
+
   const handleFormSubmit = () => {
-    if (!input.trim() || isLoading) return;
-    sendMessage({ text: input }); 
+    if (!input.trim() || isStreaming) return;
+    const text = input;
     setInput("");
+    sendMessage(text);
   };
 
   const isInitialState = messages.length === 1;
@@ -86,8 +143,8 @@ export function AiChat() {
       <div className="w-full md:w-auto relative md:absolute md:right-6 lg:right-12 xl:right-16 md:top-1/2 md:-translate-y-1/2 flex justify-center md:flex-col gap-4 p-4 md:p-0 z-40 border-b md:border-none border-white/10 bg-black/20 md:bg-transparent backdrop-blur-md md:backdrop-blur-none transition-all duration-500">
          {/* Guide Button */}
          <div className="relative group">
-            <button 
-              onClick={() => updateMode("guide")} 
+            <button
+              onClick={() => updateMode("guide")}
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "guide" ? "bg-gradient-to-r from-emerald-600/60 to-teal-500/60 border-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               🌿 Guide
@@ -101,8 +158,8 @@ export function AiChat() {
 
          {/* Healer Button */}
          <div className="relative group">
-            <button 
-              onClick={() => updateMode("healer")} 
+            <button
+              onClick={() => updateMode("healer")}
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "healer" ? "bg-gradient-to-r from-blue-600/60 to-cyan-500/60 border-blue-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               ⚕️ Healer
@@ -116,8 +173,8 @@ export function AiChat() {
 
          {/* Guardian Button */}
          <div className="relative group">
-            <button 
-              onClick={() => updateMode("guardian")} 
+            <button
+              onClick={() => updateMode("guardian")}
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "guardian" ? "bg-gradient-to-r from-purple-600/60 to-fuchsia-500/60 border-purple-400 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               🛡️ Guardian
@@ -133,7 +190,7 @@ export function AiChat() {
       {/* Main Chat Area Wrapped in a thin bordered rectangle */}
       <div className="flex-1 w-full max-w-4xl mx-auto md:my-6 relative z-10 flex flex-col overflow-hidden border border-white/15 md:rounded-[2rem] bg-black/20 backdrop-blur-md shadow-2xl">
         <div className="flex-1 overflow-y-auto scroll-smooth p-4 md:p-8">
-          
+
           {/* Header Alert */}
           <div className="mb-8 mx-auto flex justify-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-warning-white/10 border border-warning-white/20 rounded-full text-xs font-medium text-warning-white shadow-sm backdrop-blur-md">
@@ -162,7 +219,7 @@ export function AiChat() {
                    <motion.button
                      key={i}
                      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + (i * 0.1) }}
-                     onClick={() => sendMessage({ text: q })}
+                     onClick={() => sendMessage(q)}
                      className="text-left p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-pure-white/40 hover:bg-white/10 transition-all text-sm font-medium text-text-secondary hover:text-white"
                    >
                      {q}
@@ -174,19 +231,20 @@ export function AiChat() {
 
           <AnimatePresence initial={false}>
             {!isInitialState && messages.map((msg, i) => {
-              if (i === 0) return null; // Skip initial hidden greeting
+              if (i === 0) return null;
               return <ChatMessage key={msg.id} msg={msg} />;
             })}
 
-            {isLoading && messages.length > 0 && messages[messages.length - 1].role === 'user' && (
+            {/* Loading dots — shown while waiting for first token */}
+            {isWaiting && (
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex gap-4 w-full">
                   <div className="shrink-0 w-8 h-8 rounded-full bg-pure-white/20 flex items-center justify-center mt-1 border border-pure-white/30 shadow-[0_0_10px_rgba(108,122,224,0.2)]">
                     <Bot size={16} className="text-pure-white animate-pulse" />
                   </div>
                   <div className="flex items-center gap-1.5 h-10 px-4">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.4s]" />
+                    <span className="w-2 h-2 rounded-full bg-pure-white/60 animate-bounce" />
+                    <span className="w-2 h-2 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.15s]" />
+                    <span className="w-2 h-2 rounded-full bg-pure-white/60 animate-bounce [animation-delay:0.3s]" />
                   </div>
                </motion.div>
             )}
@@ -199,7 +257,7 @@ export function AiChat() {
           <ChatInput
             input={input}
             setInput={setInput}
-            isLoading={isLoading}
+            isLoading={isStreaming}
             error={error}
             handleSubmit={handleFormSubmit}
           />
