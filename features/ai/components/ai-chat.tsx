@@ -17,9 +17,19 @@ const INITIAL_MESSAGE: UIMessage = {
 export function AiChat() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState("guide");
+  // Key insight: useChat's body is captured at mount time and doesn't update.
+  // We use a ref that is always fresh and pass it on every request via the fetch option.
+  const modeRef = useRef("guide");
+  const updateMode = (m: string) => { setMode(m); modeRef.current = m; };
+
   const { messages, status, error, sendMessage } = useChat({
     messages: [INITIAL_MESSAGE],
-    body: { mode }
+    fetch: async (url, init) => {
+      // Inject the CURRENT mode from ref into the request body on every call
+      const body = JSON.parse((init?.body as string) || "{}");
+      body.mode = modeRef.current;
+      return fetch(url, { ...init, body: JSON.stringify(body) });
+    },
   });
   
   const isLoading = status === "streaming" || status === "submitted";
@@ -31,7 +41,7 @@ export function AiChat() {
 
   const handleFormSubmit = () => {
     if (!input.trim() || isLoading) return;
-    sendMessage({ text: input });
+    sendMessage({ text: input }); 
     setInput("");
   };
 
@@ -77,7 +87,7 @@ export function AiChat() {
          {/* Guide Button */}
          <div className="relative group">
             <button 
-              onClick={() => setMode("guide")} 
+              onClick={() => updateMode("guide")} 
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "guide" ? "bg-gradient-to-r from-emerald-600/60 to-teal-500/60 border-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               🌿 Guide
@@ -92,7 +102,7 @@ export function AiChat() {
          {/* Healer Button */}
          <div className="relative group">
             <button 
-              onClick={() => setMode("healer")} 
+              onClick={() => updateMode("healer")} 
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "healer" ? "bg-gradient-to-r from-blue-600/60 to-cyan-500/60 border-blue-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               ⚕️ Healer
@@ -107,7 +117,7 @@ export function AiChat() {
          {/* Guardian Button */}
          <div className="relative group">
             <button 
-              onClick={() => setMode("guardian")} 
+              onClick={() => updateMode("guardian")} 
               className={`flex justify-center items-center gap-2 max-w-[140px] px-5 py-3 rounded-2xl text-sm font-bold border transition-all duration-300 backdrop-blur-md ${mode === "guardian" ? "bg-gradient-to-r from-purple-600/60 to-fuchsia-500/60 border-purple-400 text-white shadow-[0_0_20px_rgba(168,85,247,0.5)] scale-105" : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white"}`}
             >
               🛡️ Guardian

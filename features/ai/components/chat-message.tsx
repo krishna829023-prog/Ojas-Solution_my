@@ -4,6 +4,27 @@ import { Bot, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { UIMessage } from "ai";
 
+// Parses the mode tag from the end of an AI response text
+function parseModeTag(text: string): { cleanText: string; tag: string | null } {
+  // Match the separator + tag pattern at the end of the message
+  const tagPattern = /\n---\n\*([^*]+)\*\s*$/;
+  const match = text.match(tagPattern);
+  if (match) {
+    return {
+      cleanText: text.replace(tagPattern, "").trimEnd(),
+      tag: match[1].trim(),
+    };
+  }
+  return { cleanText: text, tag: null };
+}
+
+// Returns mode badge color classes based on which mode tag was found
+function getModeStyle(tag: string): { bg: string; border: string; text: string } {
+  if (tag.includes("Healer")) return { bg: "bg-blue-950/60", border: "border-blue-500/40", text: "text-blue-300" };
+  if (tag.includes("Guardian")) return { bg: "bg-purple-950/60", border: "border-purple-500/40", text: "text-purple-300" };
+  return { bg: "bg-emerald-950/60", border: "border-emerald-500/40", text: "text-emerald-300" };
+}
+
 const renderFormattedText = (text: string) => {
   return text.split('\n').map((line, i) => {
     if (!line.trim()) return <div key={i} className="h-2" />;
@@ -49,6 +70,19 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ msg }: ChatMessageProps) {
+  // Extract the mode tag from assistant messages for a styled badge
+  let displayText = "";
+  let modeTag: string | null = null;
+
+  if (msg.role === "assistant") {
+    const rawText = msg.parts.filter(p => p.type === "text").map(p => (p as { type: "text"; text: string }).text).join("");
+    const parsed = parseModeTag(rawText);
+    displayText = parsed.cleanText;
+    modeTag = parsed.tag;
+  }
+
+  const modeStyle = modeTag ? getModeStyle(modeTag) : null;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -67,18 +101,21 @@ export function ChatMessage({ msg }: ChatMessageProps) {
       }`}>
         {msg.role === "assistant" ? (
            <div className="prose prose-invert prose-p:leading-relaxed prose-p:font-light prose-strong:text-white max-w-none">
-             {msg.parts.map((part, i) => {
-                if (part.type === 'text') {
-                   return <div key={i}>{renderFormattedText(part.text)}</div>;
-                }
-                return null;
-             })}
+             {renderFormattedText(displayText)}
+             {/* Mode Tag Badge */}
+             {modeTag && modeStyle && (
+               <div className="mt-4">
+                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-semibold border backdrop-blur-sm ${modeStyle.bg} ${modeStyle.border} ${modeStyle.text}`}>
+                   {modeTag}
+                 </span>
+               </div>
+             )}
            </div>
         ) : (
           <p className="text-[16px] font-medium leading-relaxed">
              {msg.parts.map((part, i) => {
                 if (part.type === 'text') {
-                   return <span key={i}>{part.text}</span>;
+                   return <span key={i}>{(part as { type: "text"; text: string }).text}</span>;
                 }
                 return null;
              })}
