@@ -5,12 +5,22 @@ const SYSTEM_PROMPT = `System Context: You are OjasCircle AI, a friendly wellnes
 
 export async function POST(req: Request) {
   try {
-    const { messages }: { messages: UIMessage[] } = await req.json();
+    const { messages, mode }: { messages: UIMessage[], mode?: string } = await req.json();
+
+    let modeRules = "";
+    if (mode === "doctor" || mode === "specialist") {
+      modeRules = `CURRENT MODE: ${mode.toUpperCase()}.\nCRITICAL RULES FOR THIS MODE:\n- You must NOT suggest any kind of pill or allopathy medicine.\n- You MUST include a disclaimer that you are not a doctor and not 100% correct.`;
+    } else {
+      // Default to advisor mode
+      modeRules = `CURRENT MODE: ADVISOR.\nCRITICAL RULES FOR THIS MODE:\n- NEVER suggest a doctor.\n- Do NOT suggest any allopathy medicine. Instead, suggest homeopathy and ayurvedic remedies.\n- You MUST ALWAYS add the exact line "I am not a doctor" in your response.`;
+    }
+
+    const finalSystemPrompt = `${SYSTEM_PROMPT}\n\n${modeRules}`;
 
     const result = streamText({
       model: google('gemini-3.1-flash-lite-preview'),
       messages: await convertToModelMessages(messages),
-      system: SYSTEM_PROMPT,
+      system: finalSystemPrompt,
     });
 
     return result.toUIMessageStreamResponse();

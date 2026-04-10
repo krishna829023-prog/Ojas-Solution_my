@@ -16,8 +16,10 @@ const INITIAL_MESSAGE: UIMessage = {
 
 export function AiChat() {
   const [input, setInput] = useState("");
+  const [mode, setMode] = useState("advisor");
   const { messages, status, error, sendMessage } = useChat({
     messages: [INITIAL_MESSAGE],
+    body: { mode }
   });
   
   const isLoading = status === "streaming" || status === "submitted";
@@ -41,13 +43,32 @@ export function AiChat() {
     "How to handle strong urges during NoFap recovery?"
   ];
 
+  const getGlowColors = () => {
+    if (mode === "doctor") return "bg-blue-600/20";
+    if (mode === "specialist") return "bg-purple-600/20";
+    return "bg-emerald-600/20";
+  };
+
+  const getSecondaryGlow = () => {
+    if (mode === "doctor") return "bg-cyan-500/10";
+    if (mode === "specialist") return "bg-fuchsia-500/10";
+    return "bg-teal-500/10";
+  };
+
+  const getPageBackground = () => {
+    if (mode === "doctor") return "bg-blue-950/30";
+    if (mode === "specialist") return "bg-purple-950/30";
+    return "bg-emerald-950/30";
+  };
+
   return (
-    <div className="flex flex-col h-full min-h-[85vh] w-full relative bg-ink-black overflow-hidden">
+    <div className="flex flex-col h-full min-h-[85vh] w-full relative bg-ink-black overflow-hidden transition-colors duration-1000">
 
       {/* Immersive Background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-[10%] left-[20%] w-125 h-125 bg-pure-white/10 rounded-full blur-[120px] animate-pulse-glow" />
-        <div className="absolute bottom-[20%] right-[10%] w-150 h-150 bg-aqua/5 rounded-full blur-[150px] animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute inset-0 pointer-events-none z-0 transition-colors duration-1000">
+        <div className={`absolute inset-0 transition-colors duration-1000 mix-blend-overlay ${getPageBackground()}`} />
+        <div className={`absolute top-[10%] left-[20%] w-125 h-125 rounded-full blur-[140px] animate-pulse-glow transition-colors duration-700 ${getGlowColors()}`} />
+        <div className={`absolute bottom-[20%] right-[10%] w-150 h-150 rounded-full blur-[150px] animate-float transition-colors duration-700 ${getSecondaryGlow()}`} style={{ animationDelay: '2s' }} />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
@@ -56,7 +77,7 @@ export function AiChat() {
         <div className="w-full max-w-4xl mx-auto flex flex-col px-4 md:px-8 mt-4 pb-32">
 
           {/* Header Alert */}
-          <div className="mb-6 mx-auto inline-flex items-center gap-2 px-4 py-2 bg-warning-white/10 border border-warning-white/20 rounded-full text-xs font-medium text-warning-white shadow-sm backdrop-blur-md">
+          <div className="mb-4 mx-auto inline-flex items-center gap-2 px-4 py-2 bg-warning-white/10 border border-warning-white/20 rounded-full text-xs font-medium text-warning-white shadow-sm backdrop-blur-md">
              <AlertTriangle size={14} />
              Ojas AI is educational. For clinical distress, call 14416.
           </div>
@@ -73,10 +94,32 @@ export function AiChat() {
                  <div className="absolute inset-0 bg-pure-white/20 blur-xl rounded-3xl group-hover:bg-pure-white/40 transition-colors" />
                  <Bot size={40} className="text-pure-white relative z-10 drop-shadow-[0_0_8px_rgba(108,122,224,0.8)]" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">How can I help you <span className="text-pure-white">heal</span> today?</h1>
-              <p className="text-text-secondary text-lg font-light max-w-lg mb-12">I am Ojas AI, your secure sanctuary for mental and physical wellness. Everything you say is private.</p>
+              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight relative z-10">How can I help you <span className={mode === "doctor" ? "text-blue-400" : mode === "specialist" ? "text-purple-400" : "text-emerald-400"}>heal</span> today?</h1>
+              <p className="text-text-secondary text-lg font-light max-w-lg mb-8 relative z-10">I am Ojas AI, your secure sanctuary for mental and physical wellness. Everything you say is private.</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl px-4">
+              {/* Mode Selection */}
+              <div className="flex justify-center flex-wrap gap-4 mb-12 relative z-20">
+                <button 
+                  onClick={() => setMode("advisor")} 
+                  className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 backdrop-blur-md ${mode === "advisor" ? "bg-gradient-to-r from-emerald-600/40 to-teal-600/40 border-emerald-400/50 text-emerald-50 shadow-[0_0_20px_rgba(16,185,129,0.3)] scale-105" : "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white"}`}
+                >
+                  Advisor (Default)
+                </button>
+                <button 
+                  onClick={() => setMode("doctor")} 
+                  className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 backdrop-blur-md ${mode === "doctor" ? "bg-gradient-to-r from-blue-600/40 to-cyan-600/40 border-blue-400/50 text-blue-50 shadow-[0_0_20px_rgba(59,130,246,0.3)] scale-105" : "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white"}`}
+                >
+                  Doctor
+                </button>
+                <button 
+                  onClick={() => setMode("specialist")} 
+                  className={`px-6 py-2.5 rounded-full text-sm font-semibold border transition-all duration-300 backdrop-blur-md ${mode === "specialist" ? "bg-gradient-to-r from-purple-600/40 to-fuchsia-600/40 border-purple-400/50 text-purple-50 shadow-[0_0_20px_rgba(168,85,247,0.3)] scale-105" : "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white"}`}
+                >
+                  Specialist
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl px-4 relative z-10">
                  {suggestedQueries.map((q, i) => (
                    <motion.button
                      key={i}
