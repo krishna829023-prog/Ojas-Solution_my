@@ -1,7 +1,8 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { getUsers } from "@/lib/local-db";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -9,12 +10,41 @@ const handler = NextAuth({
     }),
   ],
   pages: {
-    signIn: '/login', // we will create a custom aesthetic login page
+    signIn: '/login',
   },
   session: {
     strategy: "jwt",
   },
-  // We can add callbacks if we need to enforce rules but NextAuth handles this well
-});
+  callbacks: {
+    async jwt({ token, trigger, session }) {
+      if (trigger === "update" && session?.customUsername) {
+        token.customUsername = session.customUsername;
+        token.customName = session.customName;
+      }
+
+      if (!token.email) return token;
+
+      // Extract username directly from local JSON cache if present
+      const users = getUsers();
+      if (users[token.email]) {
+        token.customUsername = users[token.email].username;
+        token.customName = users[token.email].name;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        // @ts-ignore
+        session.user.customUsername = token.customUsername;
+        // @ts-ignore
+        session.user.customName = token.customName;
+      }
+      return session;
+    }
+  }
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

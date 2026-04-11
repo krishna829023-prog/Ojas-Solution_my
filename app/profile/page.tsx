@@ -17,7 +17,8 @@ export default function ProfilePage() {
           className="rounded-full mb-6 border-4 border-aqua/30"
         />
       )}
-      <h1 className="text-3xl font-bold mb-2">Welcome{session?.user?.name ? `, ${session.user.name}` : ''}</h1>
+      <h1 className="text-3xl font-bold mb-2">Welcome{session?.user ? `, ${(session.user as any).customName}` : ''}</h1>
+      <p className="text-aqua font-medium mb-1">@{(session?.user as any)?.customUsername}</p>
       <p className="text-white/60 mb-8">{session?.user?.email}</p>
       
       <button 
