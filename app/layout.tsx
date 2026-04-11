@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { AppLayout } from '@/components/layout/app-layout'
+import { AuthProvider } from '@/components/layout/auth-provider'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -46,12 +47,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <UserProvider>
-            <AppLayout>
-              {children}
-            </AppLayout>
-            <Toaster />
-          </UserProvider>
+          <AuthProvider>
+            <UserProvider>
+              <AppLayout>
+                {children}
+              </AppLayout>
+              <Toaster />
+            </UserProvider>
+          </AuthProvider>
         </ThemeProvider>
         <Analytics />
       </body>
