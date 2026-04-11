@@ -15,17 +15,17 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-background overflow-hidden">
       {/* Background Ambience styling */}
-      <div className="absolute top-[-10%] sm:top-0 right-[-10%] sm:right-[10%] w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] bg-amber-500/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
+      <div className="absolute top-[-10%] sm:top-0 right-[-10%] sm:right-[10%] w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] bg-aqua/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
       <div className="absolute bottom-[-10%] sm:bottom-0 left-[-10%] sm:left-[10%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-blue-500/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
 
       {/* Login Card */}
       <div className="relative z-10 w-full max-w-md p-8 sm:p-12 mx-4 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl flex flex-col items-center text-center">
         {/* Logo / Lotus Icon Representation */}
-        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 border border-amber-500/30 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-aqua/20 rounded-2xl flex items-center justify-center mb-6 border border-aqua/30 shadow-[0_0_30px_rgba(0,255,255,0.2)]">
           <span className="text-4xl">🪷</span>
         </div>
 
-        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-500 mb-2">
+        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-aqua to-aqua-light mb-2">
           Welcome to Ojas
         </h1>
         <p className="text-white/60 mb-8 max-w-[280px]">
@@ -58,7 +58,7 @@ export default function LoginPage() {
           <span className="tracking-wide">Continue with Google</span>
           
           {/* Subtle hover glow effect */}
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity blur" />
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-aqua/20 to-silver/20 opacity-0 group-hover:opacity-100 transition-opacity blur" />
         </button>
 
         <div className="mt-8 text-xs text-white/40">

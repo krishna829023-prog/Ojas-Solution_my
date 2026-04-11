@@ -46,7 +46,7 @@ export function Navbar({ toggleSidebar }: { toggleSidebar: () => void }) {
         ) : (
           <button 
             onClick={() => signIn('google')}
-            className="text-sm font-semibold text-white bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-full transition-colors"
+            className="text-sm font-bold text-ink-black bg-aqua hover:scale-105 px-5 py-2 rounded-full transition-all shadow-[0_0_15px_rgba(0,255,255,0.2)] border border-aqua/50"
           >
             Sign In
           </button>
